@@ -2,6 +2,39 @@ use seed::{prelude::*, *};
 
 mod leafy;
 
+type Model = ();
+
+enum Msg {}
+
+fn init(_: Url, _: &mut impl Orders<Msg>) -> Model {
+    ()
+}
+
+fn update(_msg: Msg, _model: &mut Model, _orders: &mut impl Orders<Msg>) {}
+
+fn view(_model: &Model) -> impl IntoNodes<Msg> {
+    let feature_group = leafy::feature_group()
+        .with(
+            leafy::geojson(OSLO_POLYGON)
+                .fill("forestgreen")
+                .stroke("#006400")
+                .stroke_width(1),
+        )
+        .with(leafy::marker(59.9147857, 10.7470423).tooltip("Hello Oslo!"))
+        .zoom_to_fit();
+
+    div![leafy::map().with(feature_group)]
+}
+
+// START
+
+#[wasm_bindgen(start)]
+pub fn start() {
+    App::start("app", init, update, view);
+}
+
+// DATA
+
 const OSLO_POLYGON: &'static str = r#"
 {
   "type": "Feature",
@@ -144,29 +177,3 @@ const OSLO_POLYGON: &'static str = r#"
     ]
   }
 }"#;
-
-type Model = ();
-
-enum Msg {}
-
-fn init(_: Url, _: &mut impl Orders<Msg>) -> Model {
-    ()
-}
-
-fn update(_msg: Msg, _model: &mut Model, _orders: &mut impl Orders<Msg>) {}
-
-fn view(_model: &Model) -> impl IntoNodes<Msg> {
-    let feature_group = leafy::feature_group()
-        .with(leafy::geojson(OSLO_POLYGON))
-        .with(leafy::marker(59.9147857, 10.7470423).tooltip("Hello Oslo!"))
-        .zoom_to_fit();
-
-    div![leafy::map().with(feature_group)]
-}
-
-// START
-
-#[wasm_bindgen(start)]
-pub fn start() {
-    App::start("app", init, update, view);
-}
