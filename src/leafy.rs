@@ -239,8 +239,8 @@ pub fn circle<Ms>(lat: f64, lng: f64, radius: u32) -> Circle<Ms> {
 }
 
 impl<Ms> Circle<Ms> {
-    pub fn stroke(mut self, color: String) -> Self {
-        self.stroke = Some(color);
+    pub fn stroke(mut self, color: impl Into<String>) -> Self {
+        self.stroke = Some(color.into());
         self
     }
 
@@ -254,8 +254,8 @@ impl<Ms> Circle<Ms> {
         self
     }
 
-    pub fn fill(mut self, color: String) -> Self {
-        self.fill = Some(color);
+    pub fn fill(mut self, color: impl Into<String>) -> Self {
+        self.fill = Some(color.into());
         self
     }
 
@@ -379,8 +379,8 @@ impl<Ms> Geojson<Ms> {
         self
     }
 
-    pub fn stroke(mut self, color: String) -> Self {
-        self.stroke = Some(color);
+    pub fn stroke(mut self, color: impl Into<String>) -> Self {
+        self.stroke = Some(color.into());
         self
     }
 
@@ -394,8 +394,8 @@ impl<Ms> Geojson<Ms> {
         self
     }
 
-    pub fn fill(mut self, color: String) -> Self {
-        self.fill = Some(color);
+    pub fn fill(mut self, color: impl Into<String>) -> Self {
+        self.fill = Some(color.into());
         self
     }
 
