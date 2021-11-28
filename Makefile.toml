@@ -1,0 +1,30 @@
+[config]
+default_to_workspace = false
+min_version = "0.32.1"
+
+[config.modify_core_tasks]
+private = true
+namespace = "default"
+
+[env]
+PORT = "9009"
+
+[tasks.build]
+description = "Build with wasm-pack"
+command = "wasm-pack"
+args = ["build", "--target", "web", "--out-name", "package", "--dev"]
+dependencies = ["default::install-wasm-pack"]
+
+[tasks.start]
+description = "Build and start microserver"
+install_crate = { crate_name = "microserver", binary = "microserver", test_arg = "-h" }
+command = "microserver"
+args = ["--port", "${PORT}"]
+dependencies = ["build"]
+
+[tasks.watch]
+install_crate = { crate_name = "microserver", binary = "microserver", test_arg = "-h" }
+command = "microserver"
+args = ["--port", "${PORT}"]
+dependencies = ["build"]
+watch = { watch = ["./src"] }

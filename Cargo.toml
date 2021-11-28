@@ -1,0 +1,14 @@
+[package]
+name = "leafy-example"
+version = "0.1.0"
+authors = ["Glenn Slotte <glenn@slotte.net>"]
+license = "MPL-2.0"
+description = "example web component bindings to leaflet"
+repository = "https://github.com/glennsl/leafy-example"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+seed = { git = "https://github.com/seed-rs/seed.git", rev = "531e813", default-features = false }
